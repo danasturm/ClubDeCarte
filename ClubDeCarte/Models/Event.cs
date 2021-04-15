@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,9 +28,11 @@ namespace ClubDeCarte.Models
         [Display(Name = "Added By")]
         public string AddedBy { get; set; }
 
+        //public string Hour { get; set; }
+
         public Event()
         {
-            // AddedBy = User.Identity.Name;
+            //AddedBy = User.Identity.Name;
         }
     }
 }

@@ -24,6 +24,6 @@ namespace ClubDeCarte.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public System.Data.Entity.DbSet<ClubDeCarte.Models.ProjectRole> ProjectRoles { get; set; }
+        public DbSet<ClubDeCarte.Models.ProjectRole> ProjectRoles { get; set; }
     }
 }

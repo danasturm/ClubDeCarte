@@ -21,7 +21,7 @@ namespace ClubDeCarte.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("BookClubDBContext", throwIfV1Schema: false)
         {
         }
 

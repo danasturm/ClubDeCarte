@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<link href="@Url.Content("~/Content/Books.css")" rel="stylesheet" type="text/css" />
 <h2>Index</h2>
 
 <p>
@@ -59,9 +59,14 @@
             @Html.DisplayFor(modelItem => item.UrlPhotoCover)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BookID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookID })
+            @Html.ActionLink("Details", "Details", new { id = item.BookID })
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BookID })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
+                }
+            }
         </td>
     </tr>
 }

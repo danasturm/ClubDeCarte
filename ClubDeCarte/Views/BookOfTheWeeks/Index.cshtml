@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<link href="@Url.Content("~/Content/BookOfTheWeek.css")" rel="stylesheet" type="text/css" />
 <h2>Index</h2>
 
 <p>
@@ -35,9 +35,14 @@
             @Html.DisplayFor(modelItem => item.ValidTo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BookOfTheWeekID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookOfTheWeekID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookOfTheWeekID })
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BookOfTheWeekID })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BookOfTheWeekID })
+                }
+            }
+            @Html.ActionLink("Details", "Details", new { id = item.BookOfTheWeekID })
         </td>
     </tr>
 }

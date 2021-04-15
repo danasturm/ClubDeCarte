@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link href="@Url.Content("~/Content/HomePage.css")" rel="stylesheet" type="text/css" />
+<div class="jumbotron">
+    <h1>Welcome to Club de Carte!</h1>
+
+    <p><a href="https://localhost:44314/Home/About" class="btn-primary">Read more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>The book of the week</h2>
+        <p>
+            Every week we offer you a new reading, not necessarily novelties, but also volumes published a few years ago, and sometimes even antique books.
+        </p>
+        <p><a class="btn-default" href="https://localhost:44314/BookOfTheWeeks">See the book of the week &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>Events</h2>
+        <p>We present book events from different cities in Romania or online, as well as you can add future events in your city.</p>
+        <p><a class="btn-default" href="https://localhost:44314/Events">See the events &raquo;</a></p>
+    </div>
+
+</div>

@@ -1,7 +1,9 @@
-﻿@model IEnumerable<ClubDeCarte.Models.BookReview>
+﻿@model PagedList.IPagedList<ClubDeCarte.Models.BookReview>
+@using PagedList.Mvc;
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "BookReview";
 }
 
 <h2>Index</h2>
@@ -9,61 +11,83 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "BookReview", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ReviewPhoto)
+           ReviewPhoto
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TitleReview)
+            TitleReview
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            AuthorBookReviewed
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AddedBy)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AddedOn)
+            AddedBy
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tags)
+            AddedOn
+        </th>
+        <th>
+            Tags
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReviewPhoto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleReview)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tags)
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewPhoto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TitleReview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorBookReviewed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tags)
+            </td>
+            <td>
 
-            @Html.ActionLink("Details", "Details", new { id = item.BookReviewID })
-            @{
-                if (User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BookReviewID })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BookReviewID })
+                @Html.ActionLink("Details", "Details", new { id = item.BookReviewID })
+                @{
+                    if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BookReviewID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookReviewID })
+                    }
                 }
-            }
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

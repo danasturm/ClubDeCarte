@@ -19,6 +19,11 @@ namespace ClubDeCarte.Models
         public string TitleReview { get; set; }
 
         [Required(ErrorMessage = "Mandatory field")]
+        [StringLength(100, ErrorMessage = "String too long (max 100 chars")]
+        [Display(Name = "Author")]
+        public string AuthorBookReviewed { get; set; }
+
+        [Required(ErrorMessage = "Mandatory field")]
         [StringLength(5000, ErrorMessage = "String too long (max 5000 chars")]
         public string Description { get; set; }
 
@@ -33,7 +38,7 @@ namespace ClubDeCarte.Models
         public BookReview()
         {
             AddedOn = DateTime.Now;
-            // AddedBy = User.Identity.Name;
+            AddedBy = System.Web.HttpContext.Current.User.Identity.Name;
         }
 
     }

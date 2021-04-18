@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ClubDeCarte.DAL;
 using ClubDeCarte.Models;
+using PagedList;
 
 namespace ClubDeCarte.Controllers
 {
@@ -15,11 +16,23 @@ namespace ClubDeCarte.Controllers
     {
         private BookClubDBContext db = new BookClubDBContext();
 
-        // [Authorize(Roles = "User, Admin")]
-        public ActionResult Index(string sortOrder, string searchString)
+        [Authorize(Roles = "User, Admin")]
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.DateSortParam = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var books = from b in db.BookReviews select b;
             if (!string.IsNullOrEmpty(searchString))
@@ -42,7 +55,9 @@ namespace ClubDeCarte.Controllers
                     books = books.OrderBy(b => b.TitleReview);
                     break;
             }
-            return View(books.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(books.ToPagedList(pageNumber, pageSize));
         }
 
         [Authorize(Roles = "User, Admin")]
@@ -60,7 +75,7 @@ namespace ClubDeCarte.Controllers
             return View(bookReview);
         }
 
-        //[Authorize(Roles = "User, Admin")]
+        [Authorize(Roles = "User, Admin")]
         public ActionResult Create()
         {
             return View();
@@ -69,7 +84,7 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "User, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookReviewID,ReviewPhoto,TitleReview,Description,AddedBy,AddedOn,Tags")] BookReview bookReview)
+        public ActionResult Create([Bind(Include = "BookReviewID,ReviewPhoto,TitleReview,AuthorBookReviewed,Description,AddedBy,AddedOn,Tags")] BookReview bookReview)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +114,7 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookReviewID,ReviewPhoto,TitleReview,Description,AddedBy,AddedOn,Tags")] BookReview bookReview)
+        public ActionResult Edit([Bind(Include = "BookReviewID,ReviewPhoto,TitleReview,AuthorBookReviewed,Description,AddedBy,AddedOn,Tags")] BookReview bookReview)
         {
             if (ModelState.IsValid)
             {

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ClubDeCarte.DAL;
 using ClubDeCarte.Models;
+using PagedList;
 
 namespace ClubDeCarte.Controllers
 {
@@ -16,9 +17,49 @@ namespace ClubDeCarte.Controllers
         private BookClubDBContext db = new BookClubDBContext();
 
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Events.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.EventSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var events = from e in db.Events
+                           select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                events = events.Where(e => e.EventDescription.Contains(searchString)
+                                       || e.EventLocation.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    events = events.OrderByDescending(e => e.EventLocation);
+                    break;
+                case "Date":
+                    events = events.OrderBy(e => e.EventDay);
+                    break;
+                case "date_desc":
+                    events = events.OrderByDescending(e => e.EventDay);
+                    break;
+                default:
+                    events = events.OrderBy(e => e.EventLocation);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(events.ToPagedList(pageNumber, pageSize));
         }
 
 

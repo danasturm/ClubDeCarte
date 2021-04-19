@@ -38,7 +38,7 @@ namespace ClubDeCarte.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 books = books.Where(b => b.TitleReview.Contains(searchString) || b.Tags.Contains(searchString) ||
-                                         b.AddedBy.Contains(searchString));
+                                         b.AddedBy.Contains(searchString) || b.AuthorBookReviewed.Contains(searchString));
             }
             switch (sortOrder)
             {

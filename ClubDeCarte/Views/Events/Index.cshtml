@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ClubDeCarte.Models.Event>
+﻿@model PagedList.IPagedList<ClubDeCarte.Models.Event>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -9,48 +11,57 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Search your favorite event: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.EventDescription)
+            @Html.ActionLink("Event description", "Index", new { sortOrder = ViewBag.EventSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventLocation)
+            Event Location
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventDay)
+            @Html.ActionLink("Event day", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AddedBy)
+            Added By
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventDay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddedBy)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.EventID })
-            @{
-                if (User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EventID })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.EventID })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddedBy)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.EventID })
+                @{
+                    if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EventID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EventID })
+                    }
                 }
-            }
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>

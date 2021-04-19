@@ -15,13 +15,13 @@ namespace ClubDeCarte.Controllers
     {
         private BookClubDBContext db = new BookClubDBContext();
 
-        // GET: BookOfTheWeeks
+       
         public ActionResult Index()
         {
             return View(db.BookOfTheWeeks.ToList());
         }
 
-        // GET: BookOfTheWeeks/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)

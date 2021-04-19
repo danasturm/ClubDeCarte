@@ -1,74 +1,87 @@
-﻿@model IEnumerable<ClubDeCarte.Models.Book>
+﻿@model PagedList.IPagedList<ClubDeCarte.Models.Book>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
 }
-<link href="@Url.Content("~/Content/Books.css")" rel="stylesheet" type="text/css" />
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Search your favorite: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
+        </th>
+
+        <th>
+            @Html.ActionLink("Other Autors", "Index", new { sortOrder = ViewBag.OtherAuthorSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AuthorID)
+            Publishing House
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OtherAuthors)
+            ISBN
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PublishingHouse)
+            Pages
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pages)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UrlPhotoCover)
+            UrlPhotoCover
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AuthorID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OtherAuthors)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PublishingHouse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ISBN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pages)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UrlPhotoCover)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.BookID })
-            @{
-                if (User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BookID })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherAuthors)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishingHouse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UrlPhotoCover)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.BookID })
+                @{
+                    if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BookID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
+                    }
                 }
-            }
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ClubDeCarte.DAL;
 using ClubDeCarte.Models;
+using PagedList;
 
 namespace ClubDeCarte.Controllers
 {
@@ -16,10 +17,22 @@ namespace ClubDeCarte.Controllers
         private BookClubDBContext db = new BookClubDBContext();
 
         [Authorize(Roles = "User, Admin")]
-        public ActionResult Index(string sortOrder, string searchString)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.OtherAutorSortParm = string.IsNullOrEmpty(sortOrder) ? "other_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var books = from b in db.Books select b;
             if (!string.IsNullOrEmpty(searchString))
@@ -42,7 +55,9 @@ namespace ClubDeCarte.Controllers
                     books = books.OrderBy(b => b.Title);
                     break;
             }
-            return View(books.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(books.ToPagedList(pageNumber, pageSize));
         }
 
         [Authorize(Roles = "User, Admin")]

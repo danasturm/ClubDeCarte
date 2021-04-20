@@ -33,19 +33,19 @@ namespace ClubDeCarte.DAL
                 new Book {Title = "Petrecerea de Halloween", AuthorID = 0001, PublishingHouse = "Litera", ISBN = "9786063366802", Pages = 320 },
                 new Book {Title = "Cu cartile pe fata", AuthorID = 0001, PublishingHouse = "Litera", ISBN = "9786063368554", Pages = 264 },
                 new Book {Title = "Urzeala tronurilor", AuthorID = 0002, PublishingHouse = "Armada", ISBN = "9786064309808" },
-                new Book {Title = "Jurnalul unei iubiri pierdute", AuthorID = 0003, PublishingHouse = "Humanitas Fiction", ISBN = "9786067797671", Pages = 216, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/1017793309-0.jpeg" },
-                new Book {Title = "Omul care vedea dincolo de chipuri", AuthorID = 0003, PublishingHouse = "Humanitas Fiction", ISBN = "9786067793796", Pages = 304, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/84826794-0.jpeg" },
-                new Book {Title = "Dragoste, pupeze si colaci", AuthorID = 0009, PublishingHouse = "Hoffman", ISBN = "9786064610706", Pages = 340, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/1104730685-0.jpeg"},
-                new Book {Title = "Fetita pierduta", AuthorID = 0008, PublishingHouse = "Litera", ISBN = "9786063372797", Pages = 352, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/1108492609-0-240.jpeg"},
+                new Book {Title = "Jurnalul unei iubiri pierdute", AuthorID = 0003, PublishingHouse = "Humanitas Fiction", ISBN = "9786067797671", Pages = 216},
+                new Book {Title = "Omul care vedea dincolo de chipuri", AuthorID = 0003, PublishingHouse = "Humanitas Fiction", ISBN = "9786067793796", Pages = 304},
+                new Book {Title = "Dragoste, pupeze si colaci", AuthorID = 0009, PublishingHouse = "Hoffman", ISBN = "9786064610706", Pages = 340},
+                new Book {Title = "Fetita pierduta", AuthorID = 0008, PublishingHouse = "Litera", ISBN = "9786063372797", Pages = 352},
                 new Book {Title = "Fetita din scrisoare", AuthorID = 0008, PublishingHouse = "Litera", ISBN = "9786063344589", Pages = 400},
-                new Book {Title = "Gambitul Damei", AuthorID = 0007, PublishingHouse = "Bookzone", ISBN = "9786069700129", Pages = 250, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/990905437-0-240.jpeg"},
+                new Book {Title = "Gambitul Damei", AuthorID = 0007, PublishingHouse = "Bookzone", ISBN = "9786069700129", Pages = 250},
                 new Book {Title = "Escape Room - Camera groazei", AuthorID = 0006, PublishingHouse = "Publisol", ISBN = "9786069739020"},
-                new Book {Title = "Viata mincinoasa a adultilor", AuthorID = 0005, PublishingHouse = "Trei", ISBN = "9786069783634", Pages = 304, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/1093427733-0-240.jpeg"},
-                new Book {Title = "Prietena mea geniala", AuthorID = 0005, PublishingHouse = "Pandora M", ISBN = "9786069782033", Pages = 336, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/216565428-1-240.jpeg"},
-                new Book {Title = "Dune", AuthorID = 0004, PublishingHouse = "Armada", ISBN = "9786064305251", UrlPhotoCover = "https://cdn.dc5.ro/img-prod/396827590-0-240.jpeg"},
-                new Book {Title = "A fost odata un razboi", AuthorID = 0010, PublishingHouse = "Polirom", ISBN = "9789734682652", Pages = 264, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/875424837-0-240.jpeg"},
-                new Book {Title = "Soareci si oameni", AuthorID = 0010, PublishingHouse = "Polirom", Pages = 160, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/9789734633807-2481278-240.jpg"},
-                new Book {Title = "Poneiul rosu", AuthorID = 0010, PublishingHouse = "Polirom", ISBN = "9789734682652", Pages = 180, UrlPhotoCover = "https://cdn.dc5.ro/img-prod/1093427237-0-240.jpeg"}
+                new Book {Title = "Viata mincinoasa a adultilor", AuthorID = 0005, PublishingHouse = "Trei", ISBN = "9786069783634", Pages = 304},
+                new Book {Title = "Prietena mea geniala", AuthorID = 0005, PublishingHouse = "Pandora M", ISBN = "9786069782033", Pages = 336},
+                new Book {Title = "Dune", AuthorID = 0004, PublishingHouse = "Armada", ISBN = "9786064305251"},
+                new Book {Title = "A fost odata un razboi", AuthorID = 0010, PublishingHouse = "Polirom", ISBN = "9789734682652", Pages = 264},
+                new Book {Title = "Soareci si oameni", AuthorID = 0010, PublishingHouse = "Polirom", Pages = 160},
+                new Book {Title = "Poneiul rosu", AuthorID = 0010, PublishingHouse = "Polirom", ISBN = "9789734682652", Pages = 180}
             };
             books.ForEach(b => context.Books.Add(b));
             context.SaveChanges();

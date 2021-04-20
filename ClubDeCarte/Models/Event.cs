@@ -28,11 +28,11 @@ namespace ClubDeCarte.Models
         [Display(Name = "Added By")]
         public string AddedBy { get; set; }
 
-        //public string Hour { get; set; }
+       
 
         public Event()
         {
-            //AddedBy = User.Identity.Name;
+            AddedBy = System.Web.HttpContext.Current.User.Identity.Name;
         }
     }
 }

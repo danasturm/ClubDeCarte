@@ -23,7 +23,7 @@
 <table class="table">
     <tr>
         <th>
-            Photo
+            
         </th>
         <th>
             @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
@@ -50,7 +50,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ReviewPhoto)
+                <img  src="@Url.Content(item.ReviewPhoto)" width="200" height="300" multiple alt="@item.TitleReview"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TitleReview)

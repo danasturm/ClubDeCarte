@@ -1,9 +1,4 @@
-﻿body {
-    background-image: url('https://anettemossbacher.com/wp-content/media/dunes-in-pastel-color-scaled-scaled-scaled-scaled.jpg');
-    background-size: cover;
-    height: 100%;
-}
-
-#table td, #table th:hover {
-    background-color: #ffd9b3;
+﻿
+body {
+    background-color: peachpuff;
 }

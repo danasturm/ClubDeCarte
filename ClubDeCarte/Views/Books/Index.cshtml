@@ -1,10 +1,13 @@
 ﻿@model PagedList.IPagedList<ClubDeCarte.Models.Book>
 @using PagedList.Mvc;
 
+
+
+
 @{
     ViewBag.Title = "Index";
 }
-
+<link href="@Url.Content("~/Content/Books.css")" rel="stylesheet" type="text/css" />
 <h2>Index</h2>
 
 <p>
@@ -27,6 +30,10 @@
         </th>
 
         <th>
+            Author
+        </th>
+
+        <th>
             @Html.ActionLink("Other Autors", "Index", new { sortOrder = ViewBag.OtherAuthorSortParm })
         </th>
         <th>
@@ -39,44 +46,46 @@
             Pages
         </th>
         <th>
-            UrlPhotoCover
+            
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.OtherAuthors)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishingHouse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UrlPhotoCover)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.BookID })
-                @{
-                    if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.BookID })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
-                    }
-                }
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BookAuthor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OtherAuthors)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PublishingHouse)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ISBN)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Pages)
+    </td>
+    <td>
+        <img src="@Url.Content(item.UrlPhotoCover)" width="150" height="200" multiple />
+    </td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.BookID })
+        @{
+            if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.BookID })
+                @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
+            }
+        }
+    </td>
+</tr>
     }
 
 </table>

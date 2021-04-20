@@ -55,7 +55,7 @@ namespace ClubDeCarte.Controllers
                     books = books.OrderBy(b => b.TitleReview);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 2;
             int pageNumber = (page ?? 1);
             return View(books.ToPagedList(pageNumber, pageSize));
         }

@@ -11,6 +11,7 @@ namespace ClubDeCarte.Models
         public int BookReviewID { get; set; }
 
         [Display(Name = "Photo")]
+        [Required(ErrorMessage = "Mandatory field")]
         public string ReviewPhoto { get; set; }
 
         [Required(ErrorMessage = "Mandatory field")]

@@ -34,7 +34,10 @@ namespace ClubDeCarte.Models
         [Display(Name = "Photo Cover")]
         public string UrlPhotoCover { get; set; }
 
+
+
         public virtual ICollection<Author> Authors { get; set; }
         public virtual Author BookAuthor { get; set; }
     }
+        
 }

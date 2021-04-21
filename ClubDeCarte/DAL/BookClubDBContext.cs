@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
+
 namespace ClubDeCarte.DAL
 {
     public class BookClubDBContext : DbContext
@@ -23,7 +24,12 @@ namespace ClubDeCarte.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+        
 
         public DbSet<ClubDeCarte.Models.ProjectRole> ProjectRoles { get; set; }
+
+        public DbSet<ClubDeCarte.Models.BookAuthorViewModel> BookAuthorViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<ClubDeCarte.Models.BookInBookOfTheWeekViewModel> BookInBookOfTheWeekViewModels { get; set; }
     }
 }

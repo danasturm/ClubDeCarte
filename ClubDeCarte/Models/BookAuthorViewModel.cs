@@ -6,16 +6,29 @@ using System.Web;
 
 namespace ClubDeCarte.Models
 {
-    public class Book
+    public class BookAuthorViewModel
     {
+        public int BookAuthorViewModelID {get; set;}
         public int BookID { get; set; }
+
+        public int AuthorID { get; set; }
+
+        [Required(ErrorMessage = "Mandatory field")]
+        public string UrlPhotoCover { get; set; }
+       
+        [Required(ErrorMessage = "Mandatory field")]
+        [StringLength(100, ErrorMessage = "String too long (max 100 chars")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Mandatory field")]
+        [StringLength(100, ErrorMessage = "String too long (max 100 chars")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "Mandatory field")]
         [StringLength(250, ErrorMessage = "String too long (max 250 chars")]
         public string Title { get; set; }
-
-        public int AuthorID { get; set; }
-
 
         [StringLength(100, ErrorMessage = "String too long (max 100 chars")]
         [Display(Name = "Other Authors")]
@@ -31,13 +44,6 @@ namespace ClubDeCarte.Models
 
         public int? Pages { get; set; }
 
-        [Display(Name = "Photo Cover")]
-        public string UrlPhotoCover { get; set; }
-
-
-        
-        public Author Authors { get; set; }
-       
+    
     }
-        
 }

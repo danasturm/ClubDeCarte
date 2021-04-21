@@ -2,8 +2,6 @@
 @using PagedList.Mvc;
 
 
-
-
 @{
     ViewBag.Title = "Index";
 }
@@ -25,6 +23,9 @@
 
 <table class="table">
     <tr>
+       <th>
+
+        </th>
         <th>
             @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
         </th>
@@ -45,9 +46,7 @@
         <th>
             Pages
         </th>
-        <th>
-            
-        </th>
+        
         <th></th>
     </tr>
 
@@ -55,10 +54,13 @@
     {
 <tr>
     <td>
+        <img src="@Url.Content(item.UrlPhotoCover)" width="150" height="200" multiple />
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.Title)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.BookAuthor)
+        @Html.DisplayFor(modelItem => item.AuthorID)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.OtherAuthors)
@@ -72,9 +74,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.Pages)
     </td>
-    <td>
-        <img src="@Url.Content(item.UrlPhotoCover)" width="150" height="200" multiple />
-    </td>
+
     <td>
         @Html.ActionLink("Details", "Details", new { id = item.BookID })
         @{

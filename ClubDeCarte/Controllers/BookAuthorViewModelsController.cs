@@ -12,7 +12,7 @@ using PagedList;
 
 namespace ClubDeCarte.Controllers
 {
-    public class BooksController : Controller
+    public class BookAuthorViewModelsController : Controller
     {
         private BookClubDBContext db = new BookClubDBContext();
 
@@ -22,8 +22,8 @@ namespace ClubDeCarte.Controllers
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewBag.OtherAutorSortParm = string.IsNullOrEmpty(sortOrder) ? "other_desc" : "";
-
+            ViewBag.OtherAutorSortParm = sortOrder == "OtherAuthors" ? "other_desc" : "OtherAuthors";
+           
             if (searchString != null)
             {
                 page = 1;
@@ -35,13 +35,14 @@ namespace ClubDeCarte.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var books = from b in db.Books select b;
+            var books = from b in db.BookAuthorViewModels select b;
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 books = books.Where(b => b.Title.Contains(searchString) || b.OtherAuthors.Contains(searchString) ||
-                                         b.ISBN.Contains(searchString) || b.PublishingHouse.Contains(searchString));
-                                         
+                                         b.ISBN.Contains(searchString) || b.PublishingHouse.Contains(searchString) ||
+                                         b.LastName.Contains(searchString) || b.FirstName.Contains(searchString));
+
             }
             switch (sortOrder)
             {
@@ -49,10 +50,10 @@ namespace ClubDeCarte.Controllers
                     books = books.OrderByDescending(b => b.Title);
                     break;
                 case "OtherAuthors":
-                    books = books.OrderBy(b => b.OtherAuthors);
+                    books = books.OrderBy(b => b.LastName);
                     break;
                 case "other_desc":
-                    books = books.OrderByDescending(b => b.OtherAuthors);
+                    books = books.OrderByDescending(b => b.LastName);
                     break;
                 default:
                     books = books.OrderBy(b => b.Title);
@@ -70,12 +71,12 @@ namespace ClubDeCarte.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
+            BookAuthorViewModel bookAuthorViewModel = db.BookAuthorViewModels.Find(id);
+            if (bookAuthorViewModel == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(bookAuthorViewModel);
         }
 
         [Authorize(Roles = "Admin")]
@@ -87,16 +88,16 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookID,Title,AuthorID,OtherAuthors,PublishingHouse,ISBN,Pages,UrlPhotoCover")] Book book)
+        public ActionResult Create([Bind(Include = "BookAuthorViewModelID,BookID,AuthorID,UrlPhotoCover,FirstName,LastName,Title,OtherAuthors,PublishingHouse,ISBN,Pages")] BookAuthorViewModel bookAuthorViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Books.Add(book);
+                db.BookAuthorViewModels.Add(bookAuthorViewModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(book);
+            return View(bookAuthorViewModel);
         }
 
         [Authorize(Roles = "Admin")]
@@ -106,26 +107,26 @@ namespace ClubDeCarte.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
+            BookAuthorViewModel bookAuthorViewModel = db.BookAuthorViewModels.Find(id);
+            if (bookAuthorViewModel == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(bookAuthorViewModel);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,Title,AuthorID,OtherAuthors,PublishingHouse,ISBN,Pages,UrlPhotoCover")] Book book)
+        public ActionResult Edit([Bind(Include = "BookAuthorViewModelID,BookID,AuthorID,UrlPhotoCover,FirstName,LastName,Title,OtherAuthors,PublishingHouse,ISBN,Pages")] BookAuthorViewModel bookAuthorViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(book).State = EntityState.Modified;
+                db.Entry(bookAuthorViewModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(book);
+            return View(bookAuthorViewModel);
         }
 
         [Authorize(Roles = "Admin")]
@@ -135,12 +136,12 @@ namespace ClubDeCarte.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
+            BookAuthorViewModel bookAuthorViewModel = db.BookAuthorViewModels.Find(id);
+            if (bookAuthorViewModel == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(bookAuthorViewModel);
         }
 
         [Authorize(Roles = "Admin")]
@@ -148,8 +149,8 @@ namespace ClubDeCarte.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Book book = db.Books.Find(id);
-            db.Books.Remove(book);
+            BookAuthorViewModel bookAuthorViewModel = db.BookAuthorViewModels.Find(id);
+            db.BookAuthorViewModels.Remove(bookAuthorViewModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -65,7 +65,6 @@ namespace ClubDeCarte.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                searchString = searchString.ToLower();
                 bookAuthorPairs = (List<BookAuthorViewModel>)bookAuthorPairs.Where(b =>
                                          b.Title.Contains(searchString) ||
                                          b.ISBN.Contains(searchString) ||

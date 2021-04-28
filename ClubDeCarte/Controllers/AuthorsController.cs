@@ -22,7 +22,6 @@ namespace ClubDeCarte.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             
-
             if (searchString != null)
             {
                 page = 1;
@@ -38,8 +37,8 @@ namespace ClubDeCarte.Controllers
                            select a;
             if (!String.IsNullOrEmpty(searchString))
             {
-                authors = authors.Where(a => a.LastName.Contains(searchString)
-                                       || a.FirstName.Contains(searchString));
+                authors = authors.Where(a => a.LastName.Contains(searchString) ||
+                                        a.FirstName.Contains(searchString));
             }
             switch (sortOrder)
             {

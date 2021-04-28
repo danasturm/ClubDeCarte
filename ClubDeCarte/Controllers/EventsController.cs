@@ -37,8 +37,8 @@ namespace ClubDeCarte.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                events = events.Where(e => e.EventDescription.Contains(searchString)
-                                       || e.EventLocation.Contains(searchString));
+                events = events.Where(e => e.EventDescription.Contains(searchString) ||
+                                           e.EventLocation.Contains(searchString));
             }
             switch (sortOrder)
             {

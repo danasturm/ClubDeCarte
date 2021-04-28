@@ -18,12 +18,12 @@
 </p>
 
 @using (Html.BeginForm())
-{
+ {
     <p>
-        Search your favorite: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Search your favorite book: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
-}
+ }
 
 <table class="table table-hover">
     <tr>

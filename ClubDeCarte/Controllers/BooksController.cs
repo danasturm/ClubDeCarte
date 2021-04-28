@@ -22,8 +22,8 @@ namespace ClubDeCarte.Controllers
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewBag.OtherAutorSortParm = string.IsNullOrEmpty(sortOrder) ? "other_desc" : "";
-
+            ViewBag.OtherAuthorSortParm = sortOrder == "OtherAuthors" ? "other_desc" : "OtherAuthors";
+            
             if (searchString != null)
             {
                 page = 1;

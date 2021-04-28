@@ -15,7 +15,7 @@ namespace ClubDeCarte.Controllers
     {
         private BookClubDBContext db = new BookClubDBContext();
 
-        // GET: BookInBookOfTheWeekViewModels
+      
         public ActionResult Index()
         {
             List<BookInBookOfTheWeekViewModel> bookOfTheWeekPairs = new List<BookInBookOfTheWeekViewModel>();
@@ -44,6 +44,15 @@ namespace ClubDeCarte.Controllers
 
 
             return View(bookOfTheWeekPairs.ToList());
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

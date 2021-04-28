@@ -18,11 +18,12 @@ namespace ClubDeCarte.Controllers
         {
             this.roleManager = roleManager;
         }
-      
+
         public ActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult Create()
         {

@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="sb-topnav navbar navbar-expand">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,7 +21,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                  
+                    @{
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Books - Admin", "Index", "Books")</li>
+                            <li>@Html.ActionLink("BookOfTheWeek - Admin", "Index", "BookOfTheWeeks")</li>
+                        }
+                    }
                     <li>@Html.ActionLink("Books", "Index", "BookAuthorViewModels")</li>
                     <li>@Html.ActionLink("Book of the week", "Index", "BookInBookOfTheWeekViewModels")</li>
                     <li>@Html.ActionLink("Book Reviews", "Index", "BookReviews")</li>

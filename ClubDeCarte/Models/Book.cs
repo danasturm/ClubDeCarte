@@ -27,17 +27,19 @@ namespace ClubDeCarte.Models
         public string PublishingHouse { get; set; }
 
         [StringLength(50, ErrorMessage = "String too long (max 50 chars")]
+        [Required(ErrorMessage = "Mandatory field")]
         public string ISBN { get; set; }
 
         public int? Pages { get; set; }
 
         [Display(Name = "Photo Cover")]
+        [Required(ErrorMessage = "Mandatory field")]
         public string UrlPhotoCover { get; set; }
 
 
         
-        public Author Authors { get; set; }
-       
+        public Author Author { get; set; }
+
     }
         
 }

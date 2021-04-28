@@ -30,6 +30,6 @@ namespace ClubDeCarte.DAL
 
         public DbSet<ClubDeCarte.Models.BookAuthorViewModel> BookAuthorViewModels { get; set; }
 
-        public System.Data.Entity.DbSet<ClubDeCarte.Models.BookInBookOfTheWeekViewModel> BookInBookOfTheWeekViewModels { get; set; }
+       
     }
 }

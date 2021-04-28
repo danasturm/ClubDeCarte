@@ -45,7 +45,7 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookOfTheWeekID,BookID,ValidFrom,ValidTo")] BookOfTheWeek bookOfTheWeek)
+        public ActionResult Create([Bind(Include = "BookOfTheWeekID,BookID,Description,ValidFrom,ValidTo")] BookOfTheWeek bookOfTheWeek)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookOfTheWeekID,BookID,ValidFrom,ValidTo")] BookOfTheWeek bookOfTheWeek)
+        public ActionResult Edit([Bind(Include = "BookOfTheWeekID,BookID,Description,ValidFrom,ValidTo")] BookOfTheWeek bookOfTheWeek)
         {
             if (ModelState.IsValid)
             {

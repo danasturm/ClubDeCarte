@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<link href="@Url.Content("~/Content/Books.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/Author.css")" rel="stylesheet" type="text/css" />
 <h2>Index</h2>
 
 <p>
@@ -25,7 +25,7 @@
     </p>
 }
 
-<table class="table">
+<table class="table table-hover">
     <tr>
 
         <th>
@@ -101,5 +101,5 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

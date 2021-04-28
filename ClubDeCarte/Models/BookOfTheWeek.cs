@@ -10,6 +10,7 @@ namespace ClubDeCarte.Models
     {
         public int BookOfTheWeekID { get; set; }
         public int BookID { get; set; }
+        public string Description { get; set; }
 
         [Display(Name = "Valid From")]
         public DateTime ValidFrom { get; set; }

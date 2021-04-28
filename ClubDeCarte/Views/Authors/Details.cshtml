@@ -4,12 +4,28 @@
     ViewBag.Title = "Details";
 }
 <link href="@Url.Content("~/Content/CreateEditDelete.css")" rel="stylesheet" type="text/css" />
-<h2>Details</h2>
+<h2>Autori</h2>
 
 <div>
-    <h4>Author</h4>
+    
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.DisplayNameFor(model => model.AuthorID)
+                }
+            }
+        </dt>
+        <dd>
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.DisplayFor(model => model.AuthorID)
+                }
+            }
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -24,6 +40,24 @@
 
         <dd>
             @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dd>
+            <table class="table table-hover">
+                <tr>
+                    <th>Books</th>
+                  
+                </tr>
+
+                @foreach (var item in Model.Books)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
 
     </dl>

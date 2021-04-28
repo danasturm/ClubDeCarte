@@ -19,10 +19,9 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "User, Admin")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewBag.OtherAutorSortParm = sortOrder == "OtherAuthors" ? "other_desc" : "OtherAuthors";
+            ViewBag.OtherAuthorSortParm = sortOrder == "OtherAuthors" ? "other_desc" : "OtherAuthors";
            
             if (searchString != null)
             {
@@ -35,33 +34,65 @@ namespace ClubDeCarte.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var books = from b in db.BookAuthorViewModels select b;
+ 
+            List<BookAuthorViewModel> bookAuthorPairs = new List<BookAuthorViewModel>();
+            IEnumerable<Book> books = from b in db.Books select b;
+            foreach (Book carte in books)
+            {
+                BookAuthorViewModel bookAuthorPair = new BookAuthorViewModel();
+                bookAuthorPair.BookID = carte.BookID;
+                bookAuthorPair.Title = carte.Title;
+                bookAuthorPair.AuthorID = carte.AuthorID;
+                bookAuthorPair.OtherAuthors = carte.OtherAuthors;
+                bookAuthorPair.PublishingHouse = carte.PublishingHouse;
+                bookAuthorPair.ISBN = carte.ISBN;
+                bookAuthorPair.Pages = carte.Pages;
+                bookAuthorPair.UrlPhotoCover = carte.UrlPhotoCover;
+                bookAuthorPairs.Add(bookAuthorPair);
+            }
+
+            IEnumerable<Author> authors = from a in db.Authors select a;
+            foreach (BookAuthorViewModel entry in bookAuthorPairs)
+            {
+                Author mainAuthor = authors.FirstOrDefault(a => a.AuthorID == entry.AuthorID);
+                if (null != mainAuthor)
+                {
+                    entry.FirstName = mainAuthor.FirstName;
+                    entry.LastName = mainAuthor.LastName;
+                }
+            }
+
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                books = books.Where(b => b.Title.Contains(searchString) || b.OtherAuthors.Contains(searchString) ||
-                                         b.ISBN.Contains(searchString) || b.PublishingHouse.Contains(searchString) ||
-                                         b.LastName.Contains(searchString) || b.FirstName.Contains(searchString));
-
+                searchString = searchString.ToLower();
+                bookAuthorPairs = (List<BookAuthorViewModel>)bookAuthorPairs.Where(b =>
+                                         b.Title.Contains(searchString) ||
+                                         b.ISBN.Contains(searchString) ||
+                                         b.PublishingHouse.Contains(searchString) ||
+                                         b.LastName.Contains(searchString) ||
+                                         b.FirstName.Contains(searchString)).ToList();
             }
+
+
             switch (sortOrder)
             {
-                case "title_desc":
-                    books = books.OrderByDescending(b => b.Title);
-                    break;
-                case "OtherAuthors":
-                    books = books.OrderBy(b => b.LastName);
-                    break;
-                case "other_desc":
-                    books = books.OrderByDescending(b => b.LastName);
-                    break;
-                default:
-                    books = books.OrderBy(b => b.Title);
-                    break;
+            case "title_desc":
+                 bookAuthorPairs = bookAuthorPairs.OrderByDescending(b => b.Title).ToList();
+                 break;
+            case "OtherAuthors":
+                 bookAuthorPairs = bookAuthorPairs.OrderBy(b => b.LastName).ToList();
+                 break;
+            case "other_desc":
+                 bookAuthorPairs = bookAuthorPairs.OrderByDescending(b => b.LastName).ToList();
+                 break;
+            default:
+                 bookAuthorPairs = bookAuthorPairs.OrderBy(b => b.Title).ToList();
+                 break;
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(books.ToPagedList(pageNumber, pageSize));
+            return View(bookAuthorPairs.ToPagedList(pageNumber, pageSize));
         }
 
         [Authorize(Roles = "User, Admin")]

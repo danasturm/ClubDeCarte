@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BookAuthorViewModelsController.cs" />
+    <Compile Include="Controllers\BookInBookOfTheWeekViewModelsController.cs" />
     <Compile Include="Controllers\BookOfTheWeeksController.cs" />
     <Compile Include="Controllers\BookReviewsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookAuthorViewModel.cs" />
+    <Compile Include="Models\BookInBookOfTheWeekViewModel.cs" />
     <Compile Include="Models\BookOfTheWeek.cs" />
     <Compile Include="Models\BookReview.cs" />
     <Compile Include="Models\Event.cs" />
@@ -361,11 +363,8 @@
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Admin\CreateRole.cshtml" />
-    <Content Include="Views\BookAuthorViewModels\Create.cshtml" />
-    <Content Include="Views\BookAuthorViewModels\Delete.cshtml" />
-    <Content Include="Views\BookAuthorViewModels\Details.cshtml" />
-    <Content Include="Views\BookAuthorViewModels\Edit.cshtml" />
     <Content Include="Views\BookAuthorViewModels\Index.cshtml" />
+    <Content Include="Views\BookInBookOfTheWeekViewModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

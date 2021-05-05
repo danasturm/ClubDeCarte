@@ -34,7 +34,9 @@ namespace ClubDeCarte.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
- 
+            StringComparer currCmp = StringComparer.CurrentCulture;
+            StringComparer currICCmp = StringComparer.CurrentCultureIgnoreCase;
+
             List<BookAuthorViewModel> bookAuthorPairs = new List<BookAuthorViewModel>();
             IEnumerable<Book> books = from b in db.Books select b;
             foreach (Book carte in books)

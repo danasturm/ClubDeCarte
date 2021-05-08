@@ -19,7 +19,7 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "User, Admin")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-
+            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.OtherAuthorSortParm = sortOrder == "OtherAuthors" ? "other_desc" : "OtherAuthors";
@@ -79,8 +79,10 @@ namespace ClubDeCarte.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.AuthorNameFromID = new SelectList(db.Authors, "AuthorID", "FullName");
             return View();
         }
 
@@ -95,7 +97,6 @@ namespace ClubDeCarte.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(book);
         }
 
@@ -162,5 +163,7 @@ namespace ClubDeCarte.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

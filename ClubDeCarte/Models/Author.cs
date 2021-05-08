@@ -24,6 +24,8 @@ namespace ClubDeCarte.Models
         public string LastName { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
-     
+
+        public string FullName => $"{FirstName} {LastName}";
+       
     }
 }

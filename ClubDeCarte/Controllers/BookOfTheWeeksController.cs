@@ -39,6 +39,7 @@ namespace ClubDeCarte.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.BookNameFromID = new SelectList(db.Books, "BookID", "Title");
             return View();
         }
 

@@ -56,7 +56,7 @@
     </tr>
 
     @foreach (var item in Model)
-    {
+     {
         <tr>
 
             <td>
@@ -85,16 +85,9 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.BookAuthorViewModelID })
-                @{
-                    if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.BookAuthorViewModelID })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.BookAuthorViewModelID })
-                    }
-                }
             </td>
         </tr>
-    }
+     }
 
 </table>
 

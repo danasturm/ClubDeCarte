@@ -10,7 +10,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create an Event", "Create", "Events", null, new { @class = "btn btn-primary" })
 </p>
 
 @using (Html.BeginForm())
@@ -38,7 +38,7 @@
     </tr>
 
     @foreach (var item in Model)
-    {
+     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.EventDescription)
@@ -63,6 +63,10 @@
                 }
             </td>
         </tr>
-    }
+     }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

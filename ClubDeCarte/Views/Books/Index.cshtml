@@ -15,7 +15,7 @@
 @using (Html.BeginForm())
 {
     <p>
-        Search your favorite: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }

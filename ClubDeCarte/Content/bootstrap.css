@@ -1831,11 +1831,11 @@ dd {
     line-height: 1.42857143;
 }
 
-dt {
+dt:hover {
     font-weight: 700;
 }
 
-dd {
+dd:hover {
     margin-left: 0;
 }
 
@@ -1852,6 +1852,7 @@ dd {
 
     .dl-horizontal dd {
         margin-left: 180px;
+        
     }
 }
 
@@ -8265,3 +8266,7 @@ button.close {
     }
 }
 
+dt:hover {
+    background: #333;
+    color: white;
+}

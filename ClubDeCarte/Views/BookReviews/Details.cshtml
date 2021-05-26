@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>BookReview</h4>
+    <h4>Book Review</h4>
     <hr />
     <dl class="dl-horizontal">
       
@@ -63,6 +63,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookReviewID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @{
+        if (User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.BookReviewID }) 
+        }
+    }
+@Html.ActionLink("Back to List", "Index", "BookReviews", null, new { @class = "btn btn-primary" })
 </p>

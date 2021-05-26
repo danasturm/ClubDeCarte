@@ -72,7 +72,7 @@
             </td>
             <td>
 
-                @Html.ActionLink("Details", "Details", new { id = item.BookReviewID })
+                @Html.ActionLink("Details", "Details", "BookReviews", new { id = item.BookReviewID }, new { @class = "btn btn-warning" })
                 @{
                     if (User.IsInRole("Admin"))
                     {

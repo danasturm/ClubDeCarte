@@ -66,9 +66,9 @@
     @{
         if (User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorID }) 
+            @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorID })
         }
     }
 
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Authors", null, new { @class = "btn btn-primary" })
 </p>

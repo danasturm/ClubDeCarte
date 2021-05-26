@@ -64,7 +64,7 @@
                             @Html.ActionLink("Delete", "Delete", new { id = item.AuthorID })
                         }
                     }
-                            @Html.ActionLink("Details", "Details", new { id = item.AuthorID })
+                    @Html.ActionLink("Details", "Details", "Authors", new { id = item.AuthorID }, new { @class = "btn btn-warning" })
                 </td>
             </tr>
         }

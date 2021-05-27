@@ -53,7 +53,7 @@
                 @Html.DisplayFor(modelItem => item.AddedBy)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.EventID })
+                @Html.ActionLink("Details", "Details", "BookReviews", new { id = item.EventID }, new { @class = "btn btn-warning" })
                 @{
                     if (User.IsInRole("Admin"))
                     {
